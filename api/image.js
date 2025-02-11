@@ -1,25 +1,16 @@
 export default function handler(req, res) {
   const userAgent = req.headers['user-agent'] || '';
-  const isFacebookBot = /facebookexternalhit|Facebot/i.test(userAgent);
+  const isFacebookShare = /facebookexternalhit\/1.1|Facebot/i.test(userAgent);
+  const isDebugger = req.headers['referer']?.includes('developers.facebook.com');
 
-  // فیک تصویر کا راستہ
-  const fakeImagePath = "/fake-image.jpeg";
-  
-  // اصل تصویر کا راستہ
-  const realImagePath = "/real-image.jpg";
-
-  // Facebook کو فیک تصویر بھیجیں
-  if (isFacebookBot) {
-    res.writeHead(302, {
-      Location: `${process.env.VERCEL_URL}${fakeImagePath}`
-    });
-    res.end();
+  // Real Image کو صرف Facebook Share Preview کے لیے بھیجیں
+  if (isFacebookShare && !isDebugger) {
+    res.setHeader('Content-Type', 'image/jpg');
+    res.sendFile(process.cwd() + '/secret/real-image.jpg'); // خفیہ فولڈر سے
   } 
-  // عام صارفین کو اصل تصویر بھیجیں
+  // Debugger یا دیگر کو Fake Image بھیجیں
   else {
-    res.writeHead(302, {
-      Location: `${process.env.VERCEL_URL}${realImagePath}`
-    });
-    res.end();
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.sendFile(process.cwd() + '/public/fake-image.jpeg');
   }
 }
