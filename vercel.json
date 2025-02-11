@@ -1,6 +1,6 @@
 {
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/api/index.js" }
+    { "src": "/image", "dest": "/api/image.js" },
+    { "src": "/(.*)", "dest": "/api/redirect.js" }
   ]
 }
