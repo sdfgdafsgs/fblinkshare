@@ -3,10 +3,10 @@ export default function handler(req, res) {
   const isFacebookBot = /facebookexternalhit|Facebot/i.test(userAgent);
 
   // فیک تصویر کا راستہ
-  const fakeImagePath = "/fake-image.jpg";
+  const fakeImagePath = "/fake-image.jpeg";
   
   // اصل تصویر کا راستہ
-  const realImagePath = "/real-image.jpeg";
+  const realImagePath = "/real-image.jpg";
 
   // Facebook کو فیک تصویر بھیجیں
   if (isFacebookBot) {
