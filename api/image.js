@@ -6,7 +6,7 @@ export default function handler(req, res) {
   const fakeImagePath = "/fake-image.jpg";
   
   // اصل تصویر کا راستہ
-  const realImagePath = "/real-image.jpg";
+  const realImagePath = "/real-image.jpeg";
 
   // Facebook کو فیک تصویر بھیجیں
   if (isFacebookBot) {
